@@ -1,0 +1,181 @@
+﻿<Window x:Class="Zaitova.PartnerEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding WindowTitle}" 
+        Height="650" Width="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="White">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" 
+                   Text="{Binding WindowTitle}"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="#333333"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="0,0,0,20">
+
+                <!-- Тип партнера -->
+                <TextBlock Text="Тип партнера *" 
+                           Margin="0,10,0,2"
+                           Foreground="#333333"/>
+                <ComboBox ItemsSource="{Binding PartnerTypes}"
+                          SelectedItem="{Binding SelectedType}"
+                          DisplayMemberPath="Name"
+                          Height="35"
+                          Margin="0,0,0,10"
+                          Padding="5"
+                          BorderBrush="#CCCCCC"
+                          BorderThickness="1"/>
+
+                <!-- Наименование -->
+                <TextBlock Text="Наименование *" 
+                           Margin="0,10,0,2"
+                           Foreground="#333333"/>
+                <TextBox Text="{Binding CurrentPartner.CompanyName, UpdateSourceTrigger=PropertyChanged}"
+                         Height="35"
+                         Margin="0,0,0,10"
+                         Padding="5"
+                         BorderBrush="#CCCCCC"
+                         BorderThickness="1"/>
+
+                <!-- Юридический адрес -->
+                <TextBlock Text="Юридический адрес" 
+                           Margin="0,10,0,2"
+                           Foreground="#333333"/>
+                <TextBox Text="{Binding CurrentPartner.LegalAddress}"
+                         Height="35"
+                         Margin="0,0,0,10"
+                         Padding="5"
+                         BorderBrush="#CCCCCC"
+                         BorderThickness="1"/>
+
+                <!-- ИНН -->
+                <TextBlock Text="ИНН" 
+                           Margin="0,10,0,2"
+                           Foreground="#333333"/>
+                <TextBox Text="{Binding CurrentPartner.Inn}"
+                         Height="35"
+                         Margin="0,0,0,10"
+                         Padding="5"
+                         BorderBrush="#CCCCCC"
+                         BorderThickness="1"
+                         MaxLength="12"/>
+
+                <!-- ФИО директора -->
+                <TextBlock Text="ФИО директора" 
+                           Margin="0,10,0,2"
+                           Foreground="#333333"/>
+                <TextBox Text="{Binding CurrentPartner.DirectorFullname}"
+                         Height="35"
+                         Margin="0,0,0,10"
+                         Padding="5"
+                         BorderBrush="#CCCCCC"
+                         BorderThickness="1"/>
+
+                <!-- Телефон -->
+                <TextBlock Text="Телефон" 
+                           Margin="0,10,0,2"
+                           Foreground="#333333"/>
+                <TextBox Text="{Binding CurrentPartner.Phone}"
+                         Height="35"
+                         Margin="0,0,0,10"
+                         Padding="5"
+                         BorderBrush="#CCCCCC"
+                         BorderThickness="1"/>
+
+                <!-- Email -->
+                <TextBlock Text="Email" 
+                           Margin="0,10,0,2"
+                           Foreground="#333333"/>
+                <TextBox Text="{Binding CurrentPartner.Email}"
+                         Height="35"
+                         Margin="0,0,0,10"
+                         Padding="5"
+                         BorderBrush="#CCCCCC"
+                         BorderThickness="1"/>
+
+                <!-- Рейтинг (0-100) -->
+                <TextBlock Text="Рейтинг (0-100) *" 
+                           Margin="0,10,0,2"
+                           Foreground="#333333"/>
+                <TextBox Text="{Binding CurrentPartner.Rating}"
+                         Height="35"
+                         Margin="0,0,0,10"
+                         Padding="5"
+                         BorderBrush="#CCCCCC"
+                         BorderThickness="1"/>
+
+                <!-- Подсказка -->
+                <Border Background="#E3F2FD" 
+                        CornerRadius="5" 
+                        Padding="10" 
+                        Margin="0,10,0,0">
+                    <TextBlock Text="* - обязательные поля. Рейтинг должен быть от 0 до 100"
+                               Foreground="#1976D2"
+                               TextWrapping="Wrap"/>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,20,0,0">
+
+            <Button Content="Сохранить" 
+                    Command="{Binding SaveCommand}"
+                    Padding="25,10"
+                    Margin="5"
+                    Background="#2196F3"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Width="100">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Content="Отмена" 
+                    Command="{Binding CancelCommand}"
+                    Padding="25,10"
+                    Margin="5"
+                    Background="#9E9E9E"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Width="100">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+
+        <!-- Индикатор загрузки -->
+        <Grid Grid.Row="1" 
+              Background="#80FFFFFF" 
+              Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ProgressBar Width="50" Height="50" IsIndeterminate="True"/>
+                <TextBlock Text="Загрузка..." Margin="0,10" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

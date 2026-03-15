@@ -1,0 +1,20 @@
+# Папки сборки (самое важное!)
+bin/
+obj/
+
+# Настройки Visual Studio
+.vs/
+*.user
+*.suo
+*.userprefs
+
+# Файлы конфигурации с паролями (важно!)
+appsettings.json
+appsettings.Development.json
+
+# Файлы отладки
+*.pdb
+*.cache
+
+# Логи
+*.log

@@ -1,0 +1,42 @@
+﻿<Application x:Class="Zaitova.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Zaitova"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Стандартные конвертеры -->
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+            <!-- Наши конвертеры -->
+            <local:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+
+            <!-- Стиль для ячеек DataGrid -->
+            <Style x:Key="DataGridCellStyle" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="10,0"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Foreground" Value="#333333"/>
+            </Style>
+
+            <!-- Стиль для заголовков DataGrid -->
+            <Style x:Key="DataGridHeaderStyle" TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="#F5F5F5"/>
+                <Setter Property="Foreground" Value="#333333"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="Padding" Value="10,0"/>
+            </Style>
+
+            <!-- Стиль для текста в ячейках (альтернативный) -->
+            <Style x:Key="DataGridTextStyle" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="10,0"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
